@@ -22,10 +22,10 @@ public abstract class Cache<K, V> implements ICache<K, V>{
 	protected ReentrantLock reentrantLock = new ReentrantLock();
 	protected ConcurrentHashMap<K, Object> getDataLockMap = new ConcurrentHashMap<K, Object>();
 	
-	protected Class<?> clazz;
+	public Class<?> clazz;
 	protected int maxCapacity;
-	protected List<Field> notPkFieldList;//V的非主键、并且需要入库的成员(没有用@PK和@Except标注的成员)
-	protected Field pkField, markField,markTrueTimeField,
+	public List<Field> notPkFieldList;//V的非主键、并且需要入库的成员(没有用@PK和@Except标注的成员)
+	public Field pkField, markField,markTrueTimeField,
 	insertField,commonBaseEntryField,commonBaseEntryMarkTrueField;//缓存主键field、markField
 
 	/**

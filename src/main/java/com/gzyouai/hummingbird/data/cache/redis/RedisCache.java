@@ -147,7 +147,7 @@ public abstract class RedisCache<K, V> extends Cache<K, V> {
 
 				keyAll.subList(0, keySize).clear();
 			}
-		} catch (IllegalArgumentException | IllegalAccessException | SecurityException e ) {
+		} catch (Exception e ) {
 			System.out.println("saveToDB ERROR ::"+clazz.getName());
 			e.printStackTrace();
 		}

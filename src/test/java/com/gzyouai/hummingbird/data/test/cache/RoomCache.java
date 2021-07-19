@@ -1,6 +1,6 @@
 package com.gzyouai.hummingbird.data.test.cache;
 
-import com.gzyouai.hummingbird.data.cache.NeedNotSaveGameCache;
+import com.gzyouai.hummingbird.data.cache.game.NeedNotSaveGameCache;
 import com.gzyouai.hummingbird.data.test.Room;
 
 /**

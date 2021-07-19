@@ -57,7 +57,7 @@ public abstract class CommonRedisCache<K, V> extends RedisCache<K, V> {
 					}
 				}
 			}
-		} catch (IllegalArgumentException | IllegalAccessException | SecurityException e ) {
+		} catch (Exception e ) {
 			System.out.println("saveToDB ERROR ::"+clazz.getName());
 			e.printStackTrace();
 		} 

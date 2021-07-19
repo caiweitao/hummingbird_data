@@ -52,7 +52,7 @@ public abstract class CommonLRUCache<K,V> extends LRUCache<K, V> {
 					}
 				}
 			}
-		}catch (IllegalArgumentException | IllegalAccessException | SecurityException e ) {
+		}catch (Exception e ) {
 			System.out.println("saveToDB ERROR ::"+clazz.getName());
 			e.printStackTrace();
 		}

@@ -1,6 +1,6 @@
 package com.gzyouai.hummingbird.data.test.cache;
 
-import com.gzyouai.hummingbird.data.cache.GameCache;
+import com.gzyouai.hummingbird.data.cache.game.GameCache;
 import com.gzyouai.hummingbird.data.db.dao.BaseDao;
 import com.gzyouai.hummingbird.data.test.db.DaoFactory;
 

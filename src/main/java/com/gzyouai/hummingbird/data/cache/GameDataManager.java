@@ -62,18 +62,24 @@ public class GameDataManager {
 			scheduledExecutorService = Executors
 					.newSingleThreadScheduledExecutor(new CommonDaemonThreadFactory("CacheToDB"));
 			scheduledExecutorService.scheduleAtFixedRate(()->{
+				Cache<?, ?> cache = null;
 				try {
 					System.out.println("检查缓存数据持久化线程执行.....");
 					for (Map.Entry<String, Cache<?, ?>> entry:cacheMap.entrySet()) {
-						Cache<?, ?> cache = entry.getValue();
+						cache = entry.getValue();
 						if (cache != null) {
 							cache.saveToDB();
 						}
 					}
 				} catch (Exception e) {
+					if (cache != null) {
+						System.out.println(String.format("GameDataManager持久化异常【%s】", cache.clazz.getName()));
+					} else {
+						System.out.println("GameDataManager持久化异常");
+					}
 					e.printStackTrace();
 				}
-			}, 1000L, CacheConfig.savePeriod, TimeUnit.MILLISECONDS);
+			}, 3*60*1000L, CacheConfig.savePeriod, TimeUnit.MILLISECONDS);
 		}
 	}
 	

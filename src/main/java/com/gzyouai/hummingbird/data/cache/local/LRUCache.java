@@ -10,6 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import com.google.gson.Gson;
 import com.gzyouai.hummingbird.data.cache.Cache;
 
 /**
@@ -118,6 +119,11 @@ public abstract class LRUCache<K, V> extends Cache<K, V> {
 				for (Entry<K,V> en:totalMap.entrySet()) {
 					V entryValue = en.getValue();
 					Object entryFieldValue = field.get(entryValue);//这个缓存对应field属性值
+					if (entryFieldValue == null) {//属性值如果为空，不做持久化
+						System.out.println(String.format("数据【%s】类-属性【%s】反射获取值为null,对象【%s】", 
+								clazz.getName(), field.getName(), new Gson().toJson(entryValue)));
+						continue;
+					}
 					boolean mark = markField.getBoolean(entryFieldValue);
 					//有变化需要入库
 					if (mark) {
@@ -140,7 +146,7 @@ public abstract class LRUCache<K, V> extends Cache<K, V> {
 					updateMemberList.clear();
 				}
 			}
-		} catch (IllegalArgumentException | IllegalAccessException | SecurityException e ) {
+		} catch (Exception e ) {
 			System.out.println("saveToDB ERROR ::"+clazz.getName());
 			e.printStackTrace();
 		}

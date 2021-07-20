@@ -19,6 +19,8 @@ public abstract class BaseGameCache<K,V> {
 	
 	public abstract int size();
 	
+	public abstract void clear();
+	
 	public abstract V without (K playerId);
 
 	public String getName() {

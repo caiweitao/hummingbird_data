@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import com.google.gson.Gson;
+
 /**
  * @author 蔡伟涛
  * @Date 2021年5月24日
@@ -57,5 +59,26 @@ public abstract class CommonLRUCache<K,V> extends LRUCache<K, V> {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * 清除已入库的缓存
+	 */
+	@Override
+	public void clear() {
+		try {
+			for (Entry<K,V> en:totalMap.entrySet()) {
+				K key = en.getKey();
+				V entryValue = en.getValue();//一个缓存数据
+				boolean insert = insertField.getBoolean(entryValue);
+				boolean update = commonBaseEntryField.getBoolean(entryValue);
+				if (!insert && !update) {
+					totalMap.remove(key);
+					removeLruMap(key);
+					System.out.println(String.format("删除缓存:%s,【%s】", entryValue, new Gson().toJson(entryValue)));
+				}
+			}
+		} catch (Exception e ) {
+			System.out.println("CLEAR CACHE ERROR ::"+clazz.getName());
+			e.printStackTrace();
+		}
+	}
 }

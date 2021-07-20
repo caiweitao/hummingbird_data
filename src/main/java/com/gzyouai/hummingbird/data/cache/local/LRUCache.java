@@ -3,6 +3,7 @@ package com.gzyouai.hummingbird.data.cache.local;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -152,10 +153,44 @@ public abstract class LRUCache<K, V> extends Cache<K, V> {
 		}
 	}
 	
+	/**
+	 * 清除已入库的缓存
+	 */
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-		
+		try {
+			for (Entry<K,V> en:totalMap.entrySet()) {
+				K key = en.getKey();
+				V value = en.getValue();
+				boolean insert = insertField.getBoolean(value);
+				if (insert) {//需要insert，不能清除
+					continue;
+				}
+				boolean remove = true;
+				for (Field field:notPkFieldList) {
+					Object entryFieldValue = field.get(value);//这个缓存对应field属性值
+					if (entryFieldValue == null) {//属性值如果为空，不做持久化
+						continue;
+					}
+					boolean mark = markField.getBoolean(entryFieldValue);
+					if (mark) {
+						remove = false;
+						break;
+					}
+				}
+				if (remove) {
+					totalMap.remove(key);
+					removeLruMap(key);
+					System.out.println(String.format("删除缓存:%s,【%s】", value, new Gson().toJson(value)));
+				}
+			}
+		} catch (Exception e ) {
+			System.out.println("CLEAR CACHE ERROR ::"+clazz.getName());
+			e.printStackTrace();
+		}
+	}
+	protected void removeLruMap (K k) {
+		executor.submit(()->lruMap.remove(k));
 	}
 	
 	@Override

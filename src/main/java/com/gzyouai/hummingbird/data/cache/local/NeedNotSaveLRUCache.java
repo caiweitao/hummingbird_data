@@ -84,7 +84,8 @@ public abstract class NeedNotSaveLRUCache<K, V> implements ICache<K, V> {
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		totalMap.clear();
+		executor.submit(()->lruMap.clear());
 	}
 	
 	@Override

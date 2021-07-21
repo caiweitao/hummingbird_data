@@ -169,10 +169,11 @@ public abstract class GameCache<K, V extends BaseEntry> extends BaseGameCache<K,
 		}
 		return cache.get(key);
 	}
-
-//	public boolean put(K key, V val) {
-//		return cache.put(key, val);
-//	}
+	
+	@Override
+	public void put (K k,V v) {
+		cache.put(k, v);
+	}
 
 	@Override
 	public Collection<K> keys() {

@@ -13,6 +13,8 @@ public abstract class BaseGameCache<K,V> {
 	
 	public abstract V get(K key);
 	
+	public abstract void put (K k,V v);
+
 	public abstract Collection<K> keys();
 	
 	public abstract boolean containKey (K k);

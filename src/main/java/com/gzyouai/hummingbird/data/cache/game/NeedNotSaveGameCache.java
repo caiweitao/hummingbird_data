@@ -39,6 +39,11 @@ public abstract class NeedNotSaveGameCache<K,V> extends BaseGameCache<K, V>{
 		}
 		return cache.get(key);
 	}
+	
+	@Override
+	public void put (K k,V v) {
+		cache.put(k, v);
+	}
 
 	@Override
 	public Collection<K> keys() {

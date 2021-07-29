@@ -3,7 +3,6 @@ package com.caiweitao.data.cache.local;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -121,8 +120,8 @@ public abstract class LRUCache<K, V> extends Cache<K, V> {
 					V entryValue = en.getValue();
 					Object entryFieldValue = field.get(entryValue);//这个缓存对应field属性值
 					if (entryFieldValue == null) {//属性值如果为空，不做持久化
-						System.out.println(String.format("数据【%s】类-属性【%s】反射获取值为null,对象【%s】", 
-								clazz.getName(), field.getName(), new Gson().toJson(entryValue)));
+//						System.out.println(String.format("数据【%s】类-属性【%s】反射获取值为null,对象【%s】", 
+//								clazz.getName(), field.getName(), new Gson().toJson(entryValue)));
 						continue;
 					}
 					boolean mark = markField.getBoolean(entryFieldValue);

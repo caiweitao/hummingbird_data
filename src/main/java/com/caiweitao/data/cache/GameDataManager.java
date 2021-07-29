@@ -61,6 +61,7 @@ public class GameDataManager {
 		if (scheduledExecutorService == null) {
 			scheduledExecutorService = Executors
 					.newSingleThreadScheduledExecutor(new CommonDaemonThreadFactory("CacheToDB"));
+			//scheduleAtFixedRate:计时过去后，检测上一个任务是否执行完毕，如果上一个任务执行完毕，则当前任务立即执行，如果上一个任务没有执行完毕，则需要等上一个任务执行完毕后立即执行。
 			scheduledExecutorService.scheduleAtFixedRate(()->{
 				Cache<?, ?> cache = null;
 				try {

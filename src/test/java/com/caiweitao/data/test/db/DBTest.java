@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.caiweitao.data.db.connection.DruidConnectionPool;
+import com.caiweitao.data.db.mysql.connection.DruidConnectionPool;
 import com.caiweitao.data.test.cache.CacheFactory;
 import com.caiweitao.data.test.cache.Items;
 import com.caiweitao.data.test.cache.Player;

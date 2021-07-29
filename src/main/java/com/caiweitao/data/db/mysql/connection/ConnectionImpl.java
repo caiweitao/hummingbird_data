@@ -1,4 +1,4 @@
-package com.caiweitao.data.db.connection;
+package com.caiweitao.data.db.mysql.connection;
 
 import java.sql.Connection;
 

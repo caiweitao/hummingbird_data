@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.caiweitao.data.db.connection.DruidConnectionPool;
+import com.caiweitao.data.db.mysql.connection.DruidConnectionPool;
 import com.caiweitao.data.test.cache.CacheFactory;
 import com.caiweitao.data.test.cache.Item;
 import com.caiweitao.data.test.cache.Items;

@@ -1,7 +1,7 @@
 package com.caiweitao.data.test.cache;
 
 import com.caiweitao.data.cache.game.GameCache;
-import com.caiweitao.data.db.dao.BaseDao;
+import com.caiweitao.data.db.mysql.dao.BaseDao;
 import com.caiweitao.data.test.db.DaoFactory;
 
 /**

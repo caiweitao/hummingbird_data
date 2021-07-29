@@ -2,7 +2,7 @@ package com.caiweitao.data.test.db;
 
 import java.sql.Connection;
 
-import com.caiweitao.data.db.connection.DruidConnectionPool;
+import com.caiweitao.data.db.mysql.connection.DruidConnectionPool;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.caiweitao.data.db.dao;
+package com.caiweitao.data.db.mysql.dao;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -19,7 +19,7 @@ import com.caiweitao.data.annotation.Except;
 import com.caiweitao.data.annotation.PK;
 import com.caiweitao.data.annotation.Table;
 import com.caiweitao.data.annotation.Tp;
-import com.caiweitao.data.db.connection.ConnectionImpl;
+import com.caiweitao.data.db.mysql.connection.ConnectionImpl;
 import com.google.gson.Gson;
 
 /**

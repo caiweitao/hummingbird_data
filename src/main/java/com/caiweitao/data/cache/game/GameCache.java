@@ -13,7 +13,7 @@ import com.caiweitao.data.cache.local.LRUCache;
 import com.caiweitao.data.cache.redis.CommonRedisCache;
 import com.caiweitao.data.cache.redis.RedisCache;
 import com.caiweitao.data.config.CacheConfig;
-import com.caiweitao.data.db.dao.BaseDao;
+import com.caiweitao.data.db.mysql.dao.BaseDao;
 import com.caiweitao.data.domain.BaseEntry;
 import com.caiweitao.data.domain.CommonBaseEntry;
 import com.caiweitao.data.domain.MarkableEntry;

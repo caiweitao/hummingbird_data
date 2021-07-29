@@ -3,7 +3,7 @@ package com.caiweitao.data.test;
 
 import java.io.File;
 
-import com.caiweitao.data.db.connection.DruidConnectionPool;
+import com.caiweitao.data.db.mysql.connection.DruidConnectionPool;
 import com.caiweitao.data.test.cache.CacheFactory;
 import com.caiweitao.data.test.cache.Player;
 import com.caiweitao.data.test.db.DBTest;

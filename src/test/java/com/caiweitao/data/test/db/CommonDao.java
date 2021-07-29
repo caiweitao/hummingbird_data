@@ -2,7 +2,7 @@ package com.caiweitao.data.test.db;
 
 import java.sql.Connection;
 
-import com.caiweitao.data.db.dao.BaseDao;
+import com.caiweitao.data.db.mysql.dao.BaseDao;
 
 /**
  * @author 蔡伟涛

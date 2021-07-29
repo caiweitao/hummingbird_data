@@ -1,4 +1,4 @@
-package com.caiweitao.data.db.dao;
+package com.caiweitao.data.db.mysql.dao;
 
 import java.util.List;
 import java.util.Map;

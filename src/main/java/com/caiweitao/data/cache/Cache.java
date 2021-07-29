@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import com.caiweitao.data.annotation.Except;
 import com.caiweitao.data.annotation.PK;
-import com.caiweitao.data.db.dao.BaseDao;
+import com.caiweitao.data.db.mysql.dao.BaseDao;
 import com.caiweitao.data.domain.BaseEntry;
 import com.caiweitao.data.domain.CommonBaseEntry;
 import com.caiweitao.data.domain.MarkableEntry;

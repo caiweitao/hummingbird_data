@@ -3,6 +3,7 @@ package com.caiweitao.data.cache.local;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.google.gson.Gson;
 
@@ -28,8 +29,9 @@ public abstract class CommonLRUCache<K,V> extends LRUCache<K, V> {
 				if (insert) {
 					insertList.add(entryValue);
 				}
-				boolean update = commonBaseEntryField.getBoolean(entryValue);
-				if (update) {
+//				boolean update = commonBaseEntryField.getBoolean(entryValue);
+				AtomicBoolean update = (AtomicBoolean)commonBaseEntryField.get(entryValue);
+				if (update.get()) {
 					updatetList.add(entryValue);
 				}
 			}
@@ -50,7 +52,9 @@ public abstract class CommonLRUCache<K,V> extends LRUCache<K, V> {
 					//updateFieldList中的对象如果在入库后又做了更新，这个时候不能去掉mark标记
 					long markTrueTime = commonBaseEntryMarkTrueField.getLong(v);
 					if (saveTime >= markTrueTime) {
-						commonBaseEntryField.set(v, false);//更新后将mark标记为false
+//						commonBaseEntryField.set(v, false);//更新后将mark标记为false
+						AtomicBoolean mark = (AtomicBoolean)commonBaseEntryField.get(v);
+						mark.compareAndSet(true, false);
 					}
 				}
 			}

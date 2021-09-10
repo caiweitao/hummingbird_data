@@ -36,7 +36,7 @@ public class PlayerInfo extends MarkableEntry<Integer> {
 	}
 	@Override
 	public String toString() {
-		return "PlayerInfo [id=" + id + ", name=" + name + ", gold=" + gold + ", isMark()=" + isMark() + "]";
+		return "PlayerInfo [id=" + id + ", name=" + name + ", gold=" + gold + ", isMark()=" + getMark().get() + "]";
 	}
 	
 	

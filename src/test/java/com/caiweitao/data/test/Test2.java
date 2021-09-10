@@ -9,7 +9,6 @@ import com.caiweitao.data.test.cache.CacheFactory;
 import com.caiweitao.data.test.cache.Item;
 import com.caiweitao.data.test.cache.Items;
 import com.caiweitao.data.test.cache.Player;
-import com.caiweitao.data.test.cache.PlayerInfo;
 import com.caiweitao.data.test.db.DBTest;
 
 /**

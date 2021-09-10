@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.caiweitao.data.cache.Cache;
 import com.google.gson.Gson;
@@ -124,9 +125,10 @@ public abstract class LRUCache<K, V> extends Cache<K, V> {
 //								clazz.getName(), field.getName(), new Gson().toJson(entryValue)));
 						continue;
 					}
-					boolean mark = markField.getBoolean(entryFieldValue);
+//					boolean mark = markField.getBoolean(entryFieldValue);
+					AtomicBoolean mark = (AtomicBoolean)markField.get(entryFieldValue);
 					//有变化需要入库
-					if (mark) {
+					if (mark.get()) {
 						Object cacheKey = pkField.get(entryValue);
 						updateMemberList.add(new Object[]{entryFieldValue,cacheKey});
 						updateFieldList.add(entryFieldValue);
@@ -140,7 +142,9 @@ public abstract class LRUCache<K, V> extends Cache<K, V> {
 						//updateFieldList中的对象如果在入库后又做了更新，这个时候不能去掉mark标记
 						long markTrueTime = markTrueTimeField.getLong(fieldObject);
 						if (saveTime >= markTrueTime) {
-							markField.set(fieldObject, false);//更新后将mark标记为false
+//							markField.set(fieldObject, false);//更新后将mark标记为false
+							AtomicBoolean mark = (AtomicBoolean)markField.get(fieldObject);
+							mark.compareAndSet(true, false);
 						}
 					}
 					updateMemberList.clear();

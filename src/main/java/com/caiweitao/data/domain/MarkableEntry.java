@@ -1,4 +1,7 @@
 package com.caiweitao.data.domain;
+
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * @author 蔡伟涛
  * @Date 2021年4月27日
@@ -7,23 +10,31 @@ package com.caiweitao.data.domain;
 public class MarkableEntry<P> {
 
 	private P playerId;//玩家id
-	private boolean mark;//持久化标记，true:表示修改过需要持久化到数据库
-	private long markTrueTime;//mark标记为true时的时间戳
+	/**
+	 * 持久化标记，true:表示修改过需要持久化到数据库
+	 * 存在玩家线程和持久化线程同时操作mark
+	 */
+	private AtomicBoolean mark = new AtomicBoolean(false);
+	/**
+	 * mark标记为true时的时间戳
+	 */
+	private long markTrueTime;
 	
 	public MarkableEntry(P playerId) {
 		this.playerId = playerId;
 	}
 	
-	public void markTrue() {
-		setMark(true);
+	//此方法可能存在多个玩家线程同时操作所以使用synchronized
+	public synchronized void markTrue() {
+		mark.compareAndSet(false, true);
 		setMarkTrueTime(System.currentTimeMillis());
 	}
 
-	public boolean isMark() {
+	public AtomicBoolean getMark() {
 		return mark;
 	}
 
-	public void setMark(boolean mark) {
+	public void setMark(AtomicBoolean mark) {
 		this.mark = mark;
 	}
 

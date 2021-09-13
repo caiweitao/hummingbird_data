@@ -63,6 +63,32 @@ public abstract class CommonLRUCache<K,V> extends LRUCache<K, V> {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * value是否做了持久化标记（需要持久化）
+	 * @param value
+	 * @return true:已更新未保存到数据库
+	 */
+	protected boolean isMark(V value) {
+		try {
+			boolean insertMark = insertField.getBoolean(value);
+			if (insertMark) {
+				return true;
+			}
+			AtomicBoolean mark = (AtomicBoolean)commonBaseEntryField.get(value);
+			System.out.println("CommonLRUCache::isMark()::"+mark.get());
+			if (mark.get()) {
+				return true;
+			}
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
 	/**
 	 * 清除已入库的缓存
 	 */

@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
 
 import com.caiweitao.data.annotation.Except;
@@ -84,9 +85,9 @@ public abstract class Cache<K, V> implements ICache<K, V>{
 				return true;
 			}
 			for (Field field:notPkFieldList) {
-				Object entryFieldValue;
-				entryFieldValue = field.get(value);
-				if (markField.getBoolean(entryFieldValue)) {
+				Object fieldValue = field.get(value);
+				AtomicBoolean mark = (AtomicBoolean)markField.get(fieldValue);
+				if (mark.get()) {
 					return true;
 				}
 			}

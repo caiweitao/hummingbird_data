@@ -70,7 +70,6 @@ public abstract class LRUCache<K, V> extends Cache<K, V> {
 					getDataLockMap.remove(head.getKey());
 				}
 			}
-			System.out.println(clazz.getSimpleName()+"sssss::"+size());
 		});
 		return true;
 	}

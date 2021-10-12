@@ -2,6 +2,7 @@ package com.caiweitao.data.db.mysql.dao;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
+
+import javax.sql.rowset.serial.SerialBlob;
 
 import com.caiweitao.data.annotation.Except;
 import com.caiweitao.data.annotation.PK;
@@ -465,6 +468,9 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 			f.setShort(obj, rs.getShort(f.getName()));
 		} else if (fclass == byte.class || fclass == Byte.class) {
 			f.setByte(obj, rs.getByte(f.getName()));
+		} else if (fclass == byte[].class) {
+			Blob blob = rs.getBlob(f.getName());
+			f.set(obj, blob.getBytes(1, (int) (blob.length())));
 		} else if (fclass == String.class) {
 			f.set(obj, rs.getString(f.getName()));
 		}
@@ -511,6 +517,8 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 			stmt.setString(index, (String)object);
 		} else if (object instanceof Timestamp) {
 			stmt.setTimestamp(index, (Timestamp)object);
+		} else if (object instanceof byte[]) {
+			stmt.setBlob(index, new SerialBlob((byte[])object));
 		} else {
 			stmt.setString(index, new Gson().toJson(object));
 		}

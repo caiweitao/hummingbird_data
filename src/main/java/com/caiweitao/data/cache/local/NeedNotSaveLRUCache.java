@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 
 import com.caiweitao.data.cache.ICache;
 
@@ -18,6 +19,7 @@ public abstract class NeedNotSaveLRUCache<K, V> implements ICache<K, V> {
 	protected int maxCapacity;
 	protected LinkedHashMap<K, V> lruMap;//做LRU策略（非线程安全）
 	protected ConcurrentHashMap<K,V> totalMap;//缓存全集（线程安全）
+	protected ConcurrentHashMap<K, Object> getDataLockMap = new ConcurrentHashMap<K, Object>();
 
 	public NeedNotSaveLRUCache(final int maxCapacity) {
 		this.maxCapacity = maxCapacity;
@@ -30,9 +32,15 @@ public abstract class NeedNotSaveLRUCache<K, V> implements ICache<K, V> {
 	public V get(K key) {
 		V v = totalMap.get(key);
 		if (v == null) {
-			v = loadout(key);
-			if (v != null) {
-				put(key, v);
+			Object dataLock = getDataLock(key);
+			synchronized (dataLock) {
+				v = totalMap.get(key);
+				if (v == null) {
+					v = loadout(key);
+					if (v != null) {
+						put(key, v);
+					}
+				}
 			}
 		} else {
 			//做LRU策略，访问的key会刷新为最新缓存
@@ -52,6 +60,7 @@ public abstract class NeedNotSaveLRUCache<K, V> implements ICache<K, V> {
 				Entry<K, V> head = getHead();
 				lruMap.remove(head.getKey());
 				totalMap.remove(head.getKey());
+				getDataLockMap.remove(head.getKey());
 			}
 		});
 		return true;
@@ -91,5 +100,30 @@ public abstract class NeedNotSaveLRUCache<K, V> implements ICache<K, V> {
 	@Override
 	public String toString() {
 		return lruMap.toString();
+	}
+	
+	/**
+	 * 获得锁
+	 * @param key
+	 * @return
+	 */
+	protected ReentrantLock reentrantLock = new ReentrantLock();
+	private Object getDataLock(K key) {
+		Object value = getDataLockMap.get(key);
+		if (value == null) {
+			reentrantLock.lock();
+			try {
+				value = getDataLockMap.get(key);
+				if (value == null) {
+					value = new Object();
+				}
+				getDataLockMap.put(key, value);
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				reentrantLock.unlock();
+			}
+		}
+		return value;
 	}
 }

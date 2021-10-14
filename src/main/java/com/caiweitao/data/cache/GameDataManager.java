@@ -47,6 +47,11 @@ public class GameDataManager {
 				CacheConfig.savePeriod = Integer.parseInt(savePeriod.toString());
 				System.out.println(String.format("【CacheConfig.savePeriod=%s毫秒】", CacheConfig.savePeriod));
 			}
+			Object startThread = properties.get("startThread");
+			if (startThread != null) {
+				CacheConfig.startThread = Boolean.parseBoolean(startThread.toString());
+				System.out.println(String.format("【CacheConfig.startThread=%s】", CacheConfig.startThread));
+			}
 			//如果缓存类型为redis
 			if (CacheConfig.cacheType == CacheConfig.CACHE_TYPE_LRU_REDIS) {
 				RedisManager.initRedisConfig(properties);
@@ -54,10 +59,12 @@ public class GameDataManager {
 			}
 		}
 		//启动线程执行数据持久化操作
-		startEvictExpiredThread();
+		if (CacheConfig.startThread) {
+			startCacheToDBThread();
+		}
 	}
 	
-	private static final void startEvictExpiredThread() {
+	private static final void startCacheToDBThread() {
 		if (scheduledExecutorService == null) {
 			scheduledExecutorService = Executors
 					.newSingleThreadScheduledExecutor(new CommonDaemonThreadFactory("CacheToDB"));

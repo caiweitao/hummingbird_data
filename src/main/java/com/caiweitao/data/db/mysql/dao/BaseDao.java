@@ -454,7 +454,8 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 			f.setInt(obj, rs.getInt(f.getName()));
 		} else if (fclass == long.class || fclass == Long.class) {
 			if (f.getAnnotation(Tp.class) != null) {
-				f.setLong(obj, rs.getTimestamp(f.getName()).getTime());
+				Timestamp timestamp = rs.getTimestamp(f.getName());
+				f.setLong(obj, timestamp == null?0:timestamp.getTime());
 			} else {
 				f.setLong(obj, rs.getLong(f.getName()));
 			}

@@ -19,7 +19,7 @@ import com.caiweitao.data.domain.CommonBaseEntry;
 import com.caiweitao.data.domain.MarkableEntry;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年4月27日
  * @Description 游戏缓存基类
  */

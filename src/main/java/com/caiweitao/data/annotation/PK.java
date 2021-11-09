@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月7日
  * @Description 表主键
  */

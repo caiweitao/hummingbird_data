@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.caiweitao.data.domain.BaseEntry;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月29日
  * @Description Cache<K,Map<K2,T>>
  */

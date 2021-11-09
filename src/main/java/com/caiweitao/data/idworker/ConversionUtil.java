@@ -3,7 +3,7 @@ package com.caiweitao.data.idworker;
 import java.math.BigInteger;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年6月8日
  * @Description 进制转换
  */

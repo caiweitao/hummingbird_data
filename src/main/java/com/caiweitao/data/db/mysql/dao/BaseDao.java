@@ -26,7 +26,7 @@ import com.caiweitao.data.db.mysql.connection.ConnectionImpl;
 import com.google.gson.Gson;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月6日
  * @Description Dao 基类
  */

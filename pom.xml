@@ -2,8 +2,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.caiweitao.data</groupId>
-	<artifactId>hummingbird_data</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>maple-data</artifactId>
+	<!-- <version>0.0.1-SNAPSHOT</version> -->
+	<version>1.0.1.RELEASE</version>
 
 	<dependencies>
 		<dependency>
@@ -33,17 +34,14 @@
 		</dependency> -->
 	</dependencies>
 	<distributionManagement>
-		<repository>
-			<id>Releases</id>
-			<name>Nexus Release Respository</name>
-			<url>http://10.21.212.231:8081/nexus/content/repositories/releases/</url>
-		</repository>
-
-		<snapshotRepository>
-			<id>Snapshots</id>
-			<name>Nexus Snapshots Snapshots</name>
-			<url>http://10.21.212.231:8081/nexus/content/repositories/snapshots/</url>
-		</snapshotRepository>
+	    <repository>
+	        <id>sonatype-nexus-snapshots</id>
+	        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+	    </repository>
+	    <snapshotRepository>
+	        <id>sonatype-nexus-snapshots</id>
+	        <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+	    </snapshotRepository>
 	</distributionManagement>
 	<build>
 		<plugins>

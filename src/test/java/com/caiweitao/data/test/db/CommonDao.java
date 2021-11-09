@@ -5,7 +5,7 @@ import java.sql.Connection;
 import com.caiweitao.data.db.mysql.dao.BaseDao;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月6日
  * @Description DAO基类
  */

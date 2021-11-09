@@ -1,7 +1,7 @@
 package com.caiweitao.data.domain;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月8日
  * @Description 大表实体基类
  */

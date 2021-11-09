@@ -3,7 +3,7 @@ package com.caiweitao.data.idworker;
 import java.util.Date;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月11日
  * @Description long类型全局唯一ID生成器（时间差值+游戏服ID+业务模块ID+序列号），每一个业务模块需创建一个IdWorker对象
  * 相应内容参考https://segmentfault.com/a/1190000011282426
@@ -144,7 +144,7 @@ public class LongIdWorker {
     }
     
     /**
-	 * @author 蔡伟涛
+	 * @author caiweitao
 	 * @Date 2021年5月12日
 	 * @Description Id信息
 	 */

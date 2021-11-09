@@ -6,7 +6,7 @@ import com.caiweitao.data.test.Equip;
 import com.caiweitao.data.test.db.DaoFactory;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月24日
  * @Description 
  */

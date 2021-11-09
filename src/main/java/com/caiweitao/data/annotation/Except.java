@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月6日
  * @Description 标记不入库的字段
  */

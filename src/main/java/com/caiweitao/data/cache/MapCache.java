@@ -12,7 +12,7 @@ package com.caiweitao.data.cache;
 //import com.gzyouai.hummingbird.data.domain.CommonBaseEntry;
 //import com.gzyouai.hummingbird.data.domain.MarkableEntry;
 ///**
-// * @author 蔡伟涛
+// * @author caiweitao
 // * @Date 2021年5月29日
 // * @Description Cache<cahceKey,map<mapkey,实体对象>>
 // */

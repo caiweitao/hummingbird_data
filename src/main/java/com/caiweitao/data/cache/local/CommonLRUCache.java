@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.google.gson.Gson;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月24日
  * @Description 普通lru本地缓存
  */

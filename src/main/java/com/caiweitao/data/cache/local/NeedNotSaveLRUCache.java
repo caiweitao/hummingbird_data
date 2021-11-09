@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import com.caiweitao.data.cache.ICache;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月25日
  * @Description 不需要持久化的缓存
  */

@@ -14,7 +14,7 @@ import com.caiweitao.data.common.PropertiesUtil;
 import com.caiweitao.data.config.CacheConfig;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年4月27日
  * @Description 游戏数据管理者
  */

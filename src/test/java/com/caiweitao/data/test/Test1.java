@@ -9,7 +9,7 @@ import com.caiweitao.data.test.cache.Player;
 import com.caiweitao.data.test.db.DBTest;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月10日
  * @Description 测试取出数据后  在缓存中被删除的情况
  */

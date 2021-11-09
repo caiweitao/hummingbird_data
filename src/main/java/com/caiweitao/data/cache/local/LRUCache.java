@@ -15,7 +15,7 @@ import com.caiweitao.data.cache.Cache;
 import com.google.gson.Gson;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年4月27日
  * @Description 特殊本地LRU缓存（按字段批量持久化）V的成员变量相当于一个小表
  */

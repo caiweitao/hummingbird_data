@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月18日
  * @Description 大表中成员变量需要map的，继承此类
  */

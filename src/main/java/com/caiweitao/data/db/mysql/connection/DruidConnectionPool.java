@@ -15,7 +15,7 @@ import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.caiweitao.data.common.PropertiesUtil;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月6日
  * @Description Druid连接池
  */

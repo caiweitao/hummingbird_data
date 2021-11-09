@@ -15,7 +15,7 @@ package com.caiweitao.data.cache.local;
 //import com.gzyouai.hummingbird.data.domain.CommonBaseEntry;
 //
 ///**
-// * @author 蔡伟涛
+// * @author caiweitao
 // * @Date 2021年5月29日
 // * @Description V值为Map类型的LRU缓存
 // */

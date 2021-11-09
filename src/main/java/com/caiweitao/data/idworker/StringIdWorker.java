@@ -3,7 +3,7 @@ package com.caiweitao.data.idworker;
 import java.util.Date;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月14日
  * @Description String类型，全局唯一id（服务器id+时间戳+业务id+序列号 ）
  */
@@ -100,7 +100,7 @@ public class StringIdWorker {
 	}
 	
 	/**
-	 * @author 蔡伟涛
+	 * @author caiweitao
 	 * @Date 2021年5月12日
 	 * @Description Id信息
 	 */

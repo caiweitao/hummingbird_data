@@ -3,7 +3,7 @@ package com.caiweitao.data.cache;
 import java.util.Collection;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年4月27日
  * @Description 缓存接口
  */

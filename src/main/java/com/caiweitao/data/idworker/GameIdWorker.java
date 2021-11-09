@@ -3,7 +3,7 @@ package com.caiweitao.data.idworker;
 import java.util.Date;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月11日
  * @Description String类型全局唯一ID生成器（游戏服ID+时间差值+序列号，服务器id字符串+时间差值和序列号拼接成一个long）
  * 相应内容参考https://segmentfault.com/a/1190000011282426
@@ -132,7 +132,7 @@ public class GameIdWorker {
     }
     
     /**
-	 * @author 蔡伟涛
+	 * @author caiweitao
 	 * @Date 2021年5月12日
 	 * @Description Id信息
 	 */

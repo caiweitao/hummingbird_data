@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.caiweitao.data.domain.BaseEntry;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年5月24日
  * @Description 普通表（非大表）实体基类
  */

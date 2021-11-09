@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.caiweitao.data.idworker.StringIdWorker;
 
 /**
- * @author 蔡伟涛
+ * @author caiweitao
  * @Date 2021年6月1日
  * @Description 
  */

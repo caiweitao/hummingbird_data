@@ -610,7 +610,7 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 		sb.append("INSERT INTO `").append(tableName).append("` (");
 		mouldTemp.append(" VALUES (");
 		for (Field field:attributeList) {
-			sb.append(field.getName()).append(",");
+			sb.append("`").append(field.getName()).append("`,");
 			mouldTemp.append("?,");
 		}
 		sb.replace(sb.length()-1, sb.length(), ")");
@@ -627,7 +627,7 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 		for (Field field:attributeList) {
 			PK pk = field.getAnnotation(PK.class);
 			if (pk == null) {
-				sb.append(field.getName()).append(",");
+				sb.append("`").append(field.getName()).append("`,");
 				mouldTemp.append("?,");
 			}
 		}
@@ -643,7 +643,7 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 		for (Field field:attributeList) {
 			PK pk = field.getAnnotation(PK.class);
 			if (pk != null) {
-				sb.append(field.getName()).append("=? AND ");
+				sb.append("`").append(field.getName()).append("`=? AND ");
 			}
 		}
 		return sb.substring(0, sb.lastIndexOf("AND"));
@@ -657,10 +657,10 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 		for (Field field:attributeList) {
 			PK pk = field.getAnnotation(PK.class);
 			if (pk == null) {
-				sb.append(field.getName()).append("=?,");
+				sb.append("`").append(field.getName()).append("`=?,");
 			} else {
 				//主键
-				pkSb.append(field.getName()).append("=? AND ");
+				pkSb.append("`").append(field.getName()).append("`=? AND ");
 			}
 		}
 		int lastIndexOf = sb.lastIndexOf(",");
@@ -676,7 +676,7 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 		sb.append("SELECT * FROM `").append(tableName).append("` WHERE ");
 		for (Field f:attributeList) {
 			if (f.getAnnotation(PK.class) != null) {
-				sb.append(f.getName()).append("=? AND ");
+				sb.append("`").append(f.getName()).append("`=? AND ");
 			}
 		}
 		return sb.substring(0, sb.lastIndexOf("AND "));
@@ -691,8 +691,9 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 		.append("=?")
 		.append(" WHERE ");
 		for (Field pkField:pkList) {
-			sb.append(pkField.getName())
-			.append("=?")
+			sb.append("`")
+			.append(pkField.getName())
+			.append("`=?")
 			.append(" AND ");
 		}
 		return sb.substring(0, sb.lastIndexOf("AND "));

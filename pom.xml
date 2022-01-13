@@ -3,8 +3,27 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.caiweitao</groupId>
 	<artifactId>maple-data</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-
+	<version>1.0.0</version>
+	
+	<licenses>
+	    <license>
+	      <name>The Apache Software License, Version 2.0</name>
+	      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+	    </license>
+  	</licenses>
+  	<developers>
+	    <developer>
+	      <name>caiweitao</name>
+	      <email>caiwhytou@163.com</email>
+	      <organization>io.github.caiweitao</organization>
+	    </developer>
+  	</developers>
+  	<scm>
+	    <url>https://github.com/caiweitao/maple-data</url>
+        <connection>scm:git:https://github.com/caiweitao/maple-data.git</connection>
+        <developerConnection>scm:git:https://github.com/caiweitao/maple-data.git</developerConnection>
+   	</scm>
+	
 	<dependencies>
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -14,7 +33,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.30</version>
+			<version>8.0.18</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -42,7 +61,7 @@
             <id>sonatype-nexus-snapshots</id>
             <name>Nexus Snapshot Repository</name>
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-    </snapshotRepository>
+    	</snapshotRepository>
     </distributionManagement>
 	<build>
 		<plugins>

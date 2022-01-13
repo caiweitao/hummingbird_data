@@ -509,6 +509,7 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 		}
 		else {
 			f.set(obj, new Gson().fromJson(rs.getString(f.getName()), fclass));
+//			f.set(obj, JSONObject.parseObject(rs.getString(f.getName()), fclass));
 		}
 	}
 	
@@ -554,6 +555,9 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 			stmt.setBlob(index, new SerialBlob((byte[])object));
 		} else {
 			stmt.setString(index, new Gson().toJson(object));
+//			stmt.setString(index, JSON.toJSONString(object));
+//			System.out.println(new Gson().toJson(object));
+//			stmt.setString(index, JSONObject.toJSONString(object));
 		}
 	}
 	

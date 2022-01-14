@@ -1,8 +1,9 @@
 package com.caiweitao.data.cache.redis;
 
-import java.util.Arrays;
 import java.util.Set;
+
 import com.google.gson.Gson;
+
 import redis.clients.jedis.Jedis;
 
 public abstract class RedisMap<K,V> {

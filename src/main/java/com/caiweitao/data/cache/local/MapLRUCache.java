@@ -1,5 +1,4 @@
 package com.caiweitao.data.cache.local;
-//package com.gzyouai.hummingbird.data.cache.local;
 //
 //import java.util.ArrayList;
 //import java.util.Collection;
@@ -10,9 +9,6 @@ package com.caiweitao.data.cache.local;
 //import java.util.concurrent.ConcurrentHashMap;
 //import java.util.concurrent.ExecutorService;
 //import java.util.concurrent.Executors;
-//
-//import com.gzyouai.hummingbird.data.cache.MapCache;
-//import com.gzyouai.hummingbird.data.domain.CommonBaseEntry;
 //
 ///**
 // * @author caiweitao

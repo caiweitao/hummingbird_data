@@ -1,10 +1,8 @@
 package com.caiweitao.data.test.cache;
-//package com.gzyouai.hummingbird.data.test.cache;
 //
 //import java.util.HashMap;
 //import java.util.Map;
 //
-//import com.gzyouai.hummingbird.data.cache.GameCache;
 //
 ///**
 // * @author caiweitao

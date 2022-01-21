@@ -67,7 +67,7 @@ public class GameDataManager {
 	private static final void startCacheToDBThread() {
 		if (scheduledExecutorService == null) {
 			scheduledExecutorService = Executors
-					.newSingleThreadScheduledExecutor(new CommonDaemonThreadFactory("CacheToDB"));
+					.newSingleThreadScheduledExecutor();
 			//scheduleAtFixedRate:计时过去后，检测上一个任务是否执行完毕，如果上一个任务执行完毕，则当前任务立即执行，如果上一个任务没有执行完毕，则需要等上一个任务执行完毕后立即执行。
 			scheduledExecutorService.scheduleAtFixedRate(()->{
 				Cache<?, ?> cache = null;
@@ -119,6 +119,9 @@ public class GameDataManager {
 	 */
 	public static void shutdown () {
 		System.out.println("GameDataManager.shutdown()..........");
+		if (scheduledExecutorService != null) {
+			scheduledExecutorService.shutdown();
+		}
 		for (Map.Entry<String, ICache<?, ?>> entry : neetNotSaveCache.entrySet()) {
 			ICache<?, ?> cache = entry.getValue();
 			if (cache != null) {

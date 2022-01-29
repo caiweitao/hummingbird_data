@@ -76,7 +76,6 @@ public abstract class CommonLRUCache<K,V> extends LRUCache<K, V> {
 				return true;
 			}
 			AtomicBoolean mark = (AtomicBoolean)commonBaseEntryField.get(value);
-			System.out.println("CommonLRUCache::isMark()::"+mark.get());
 			if (mark.get()) {
 				return true;
 			}

@@ -107,10 +107,12 @@ public abstract class LRUCache<K, V> extends Cache<K, V> {
 			}
 			//批量insert
 			if (insertList.size() > 0) {
-				dao().batchInsert(insertList);
-				//标记为false
-				for (V v:insertList) {
-					insertField.set(v, false);
+				boolean result = dao().batchInsert(insertList);
+				if (result) {
+					//标记为false
+					for (V v:insertList) {
+						insertField.set(v, false);
+					}
 				}
 			}
 			//批量update(按字段)
@@ -125,7 +127,6 @@ public abstract class LRUCache<K, V> extends Cache<K, V> {
 //								clazz.getName(), field.getName(), new Gson().toJson(entryValue)));
 						continue;
 					}
-//					boolean mark = markField.getBoolean(entryFieldValue);
 					AtomicBoolean mark = (AtomicBoolean)markField.get(entryFieldValue);
 					//有变化需要入库
 					if (mark.get()) {
@@ -136,18 +137,19 @@ public abstract class LRUCache<K, V> extends Cache<K, V> {
 				}
 				if (updateMemberList.size() > 0) {
 					long saveTime = System.currentTimeMillis();
-					dao().batchUpdateByFieldName(field.getName(), updateMemberList);
-					//批量保存后，将对应的mark标记设置为false
-					for (Object fieldObject:updateFieldList) {
-						//updateFieldList中的对象如果在入库后又做了更新，这个时候不能去掉mark标记
-						long markTrueTime = markTrueTimeField.getLong(fieldObject);
-						if (saveTime >= markTrueTime) {
-//							markField.set(fieldObject, false);//更新后将mark标记为false
-							AtomicBoolean mark = (AtomicBoolean)markField.get(fieldObject);
-							mark.compareAndSet(true, false);
+					boolean result = dao().batchUpdateByFieldName(field.getName(), updateMemberList);
+					if (result) {
+						//批量保存后，将对应的mark标记设置为false
+						for (Object fieldObject:updateFieldList) {
+							//updateFieldList中的对象如果在入库后又做了更新，这个时候不能去掉mark标记
+							long markTrueTime = markTrueTimeField.getLong(fieldObject);
+							if (saveTime >= markTrueTime) {
+								AtomicBoolean mark = (AtomicBoolean)markField.get(fieldObject);
+								mark.compareAndSet(true, false);
+							}
 						}
+						updateMemberList.clear();
 					}
-					updateMemberList.clear();
 				}
 			}
 		} catch (Exception e ) {

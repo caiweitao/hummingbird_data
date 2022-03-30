@@ -2,6 +2,8 @@ package com.caiweitao.data.cache.game;
 
 import java.util.Collection;
 
+import com.caiweitao.data.exception.CacheSelectException;
+
 /**
  * @author caiweitao
  * @Date 2021年7月7日
@@ -23,7 +25,7 @@ public abstract class BaseGameCache<K,V> {
 	
 	public abstract void clear();
 	
-	public abstract V without (K playerId);
+	public abstract V without (K playerId) throws CacheSelectException;
 
 	public String getName() {
 		return name;

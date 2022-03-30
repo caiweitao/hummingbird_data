@@ -112,8 +112,8 @@ public abstract class Cache<K, V> implements ICache<K, V>{
 				value = getDataLockMap.get(key);
 				if (value == null) {
 					value = new Object();
+					getDataLockMap.put(key, value);
 				}
-				getDataLockMap.put(key, value);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {

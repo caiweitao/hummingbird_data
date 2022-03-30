@@ -23,6 +23,7 @@ import com.caiweitao.data.annotation.PK;
 import com.caiweitao.data.annotation.Table;
 import com.caiweitao.data.annotation.Tp;
 import com.caiweitao.data.db.mysql.connection.ConnectionImpl;
+import com.caiweitao.data.exception.SqlSelectException;
 import com.google.gson.Gson;
 
 /**
@@ -152,7 +153,7 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 	}
 	
 	@Override
-	public int[] batchInsert (List<T> list) {
+	public boolean batchInsert (List<T> list) {
 		Connection conn = getConnection();
 		PreparedStatement stmt = null ;
 		try {
@@ -167,15 +168,15 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 				}
 				stmt.addBatch();
 			}
-			int[] s = stmt.executeBatch();
+			stmt.executeBatch();
 			conn.commit();
-			return s;
+			return true;
 		} catch (SQLException | IllegalAccessException e) {
 			exeSqlError(insertSql, e, list);
+			return false;
 		} finally {
 			closeAll(null, stmt, conn);
 		}
-		return new int[0];
 	}
 	
 	@Override
@@ -210,7 +211,7 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 		return executeUpdate > 0;
 	}
 	
-	public int[] batchUpdate (List<T> tList) {
+	public boolean batchUpdate (List<T> tList) {
 		Connection conn = getConnection();
 		PreparedStatement stmt = null ;
 		try {
@@ -240,15 +241,15 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 				}
 				stmt.addBatch();
 			}
-			int[] s = stmt.executeBatch();
+			stmt.executeBatch();
 			conn.commit();
-			return s;
+			return true;
 		} catch (SQLException | IllegalAccessException e) {
 			exeSqlError(updateSql, e, tList);
+			return false;
 		} finally {
 			closeAll(null, stmt, conn);
 		}
-		return new int[0];
 	}
 	
 	@Override
@@ -276,13 +277,13 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 	}
 	
 	@Override
-	public T selectByKey(Object...k) {
+	public T selectByKey(Object...k) throws SqlSelectException {
 		return selectOne(selectSql, k);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public T selectOne(String sql, Object... paramVarArgs) {
+	public T selectOne(String sql, Object... paramVarArgs) throws SqlSelectException {
 		Connection conn = getConnection();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -303,6 +304,7 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 			}
 		} catch (Exception e) {
 			exeSqlError(sql, e, paramVarArgs);
+			throw new SqlSelectException (sql,e);
 		} finally {
 			closeAll(rs, stmt, conn);
 		}
@@ -312,11 +314,11 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 	//paramVarArgs如果对应的数据库类型为datetime,则必须把long时间戳转成new java.sql.Timestamp(时间戳)
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<T> selectList(String sql, Object... paramVarArgs) {
+	public List<T> selectList(String sql, Object... paramVarArgs) throws SqlSelectException{
 		Connection conn = getConnection();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		List<T> list = new ArrayList<T>();
+		List<T> list = null;
 		try {
 			stmt = conn.prepareStatement(sql);
 			int index = 1;
@@ -324,6 +326,7 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 				setStatementParam(stmt, index++, o, null);
 			}
 			rs = stmt.executeQuery();
+			list = new ArrayList<T>();
 			while (rs.next()) {
 				Object newInstance = clazz.newInstance();
 				for (Field f:attributeList) {
@@ -335,20 +338,20 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 			return list;
 		} catch (Exception e) {
 			exeSqlError(sql, e, paramVarArgs);
+			throw new SqlSelectException (sql,e);
 		} finally {
 			closeAll(rs, stmt, conn);
 		}
-		return null;
 	}
 	
 	@Override
-	public List<T> selectListByKey(Object... keys) {
+	public List<T> selectListByKey(Object... keys) throws SqlSelectException {
 		return selectList(selectSql, keys);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<K, T> selectMap(String sql, Object... paramVarArgs) {
+	public Map<K, T> selectMap(String sql, Object... paramVarArgs) throws SqlSelectException{
 		List<T> list = selectList(sql, paramVarArgs);
 		Map<K,T> map = new ConcurrentHashMap<K, T>();
 		Field pkFiled = pkFieldList.get(0);
@@ -357,13 +360,14 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 				map.put((K)pkFiled.get(t), t);
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				e.printStackTrace();
+				throw new SqlSelectException (sql,e);
 			}
 		}
 		return map;
 	}
 	
 	@Override
-	public Map<K, T> selectMapByKey(Object... keys) {
+	public Map<K, T> selectMapByKey(Object... keys) throws SqlSelectException{
 		return selectMap(selectSql, keys);
 	}
 	
@@ -421,9 +425,9 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 	 * 根据字段名批量更新数据
 	 * @param fieldName
 	 * @param list
-	 * @return
+	 * @return true:执行成功，false,执行错误
 	 */
-	public int[] batchUpdateByFieldName (String fieldName,List<Object[]> list) {
+	public boolean batchUpdateByFieldName (String fieldName,List<Object[]> list) {
 		String sql = fieldUpdateSqlMap.get(fieldName);
 		Objects.requireNonNull(sql);
 		Connection conn = getConnection();
@@ -438,15 +442,15 @@ public abstract class BaseDao<K,T> implements IDao<K,T>, ConnectionImpl{
 				}
 				stmt.addBatch();
 			}
-			int[] executeBatch = stmt.executeBatch();
+			stmt.executeBatch();
 			conn.commit();
-			return executeBatch;
+			return true;
 		} catch (SQLException e) {
 			exeSqlError(sql, e, list);
+			return false;
 		} finally {
 			closeAll(null, stmt, conn);
 		}
-		return new int[0];
 	}
 	
 	public int[] batchSql(List<String> sqlList) {

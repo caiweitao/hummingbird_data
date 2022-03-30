@@ -40,20 +40,24 @@ public abstract class CommonRedisCache<K, V> extends RedisCache<K, V> {
 				}
 				//批量insert
 				if (insertList.size() > 0) {
-					dao().batchInsert(insertList);
-					//标记为false
-					for (V v:insertList) {
-						insertField.set(v, false);
-						//回写到redis
-						redisMap.hset((K)pkField.get(v), v);
+					boolean result = dao().batchInsert(insertList);
+					if (result) {
+						//标记为false
+						for (V v:insertList) {
+							insertField.set(v, false);
+							//回写到redis
+							redisMap.hset((K)pkField.get(v), v);
+						}
 					}
 				}
 				if (updateList.size() > 0) {
-					dao().batchUpdate(updateList);
-					for (V v:updateList) {
-						commonBaseEntryField.set(v, false);
-						//回写到redis
-						redisMap.hset((K)pkField.get(v), v);
+					boolean result = dao().batchUpdate(updateList);
+					if (result) {
+						for (V v:updateList) {
+							commonBaseEntryField.set(v, false);
+							//回写到redis
+							redisMap.hset((K)pkField.get(v), v);
+						}
 					}
 				}
 			}

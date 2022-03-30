@@ -17,6 +17,7 @@ import com.caiweitao.data.db.mysql.dao.BaseDao;
 import com.caiweitao.data.domain.BaseEntry;
 import com.caiweitao.data.domain.CommonBaseEntry;
 import com.caiweitao.data.domain.MarkableEntry;
+import com.caiweitao.data.exception.CacheSelectException;
 
 /**
  * @author caiweitao
@@ -42,7 +43,12 @@ public abstract class GameCache<K, V extends BaseEntry> extends BaseGameCache<K,
 				cache = new CommonLRUCache<K, V>(maxElementsInMemory,clazz) {
 					@Override
 					public V loadout(K key) {
-						return without(key);
+						try {
+							return without(key);
+						} catch (CacheSelectException e) {
+							e.printStackTrace();
+							return null;
+						}
 					}
 					@Override
 					public BaseDao<K, V> dao() {
@@ -53,7 +59,12 @@ public abstract class GameCache<K, V extends BaseEntry> extends BaseGameCache<K,
 				cache = new LRUCache<K, V>(maxElementsInMemory,clazz) {
 					@Override
 					public V loadout(K key) {
-						return without(key);
+						try {
+							return without(key);
+						} catch (CacheSelectException e) {
+							e.printStackTrace();
+							return null;
+						}
 					}
 					
 					@Override
@@ -67,7 +78,12 @@ public abstract class GameCache<K, V extends BaseEntry> extends BaseGameCache<K,
 				cache = new CommonRedisCache<K, V>(maxElementsInMemory,name,clazz) {
 					@Override
 					public V loadout(K key) {
-						return without(key);
+						try {
+							return without(key);
+						} catch (CacheSelectException e) {
+							e.printStackTrace();
+							return null;
+						}
 					}
 					@Override
 					public BaseDao<K, V> dao() {
@@ -78,7 +94,12 @@ public abstract class GameCache<K, V extends BaseEntry> extends BaseGameCache<K,
 				cache = new RedisCache<K, V>(maxElementsInMemory,name,clazz) {
 					@Override
 					public V loadout(K key) {
-						return without(key);
+						try {
+							return without(key);
+						} catch (CacheSelectException e) {
+							e.printStackTrace();
+							return null;
+						}
 					}
 					@Override
 					public BaseDao<K, V> dao() {

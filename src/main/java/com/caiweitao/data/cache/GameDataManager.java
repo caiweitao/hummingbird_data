@@ -9,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 
 import com.caiweitao.data.cache.redis.RedisManager;
 import com.caiweitao.data.cache.redis.RedisMap;
-import com.caiweitao.data.common.CommonDaemonThreadFactory;
 import com.caiweitao.data.common.PropertiesUtil;
 import com.caiweitao.data.config.CacheConfig;
 

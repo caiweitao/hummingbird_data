@@ -12,14 +12,14 @@ public interface IDao<K,T> {
 	
 	public boolean update(T paramT);
 
-	public int[] batchUpdate (List<T> tList);
+	public boolean batchUpdate (List<T> tList);
 	
 	public boolean insert(T paramT);
 	
 	/**主键自增insert*/
 	public boolean insertAuto (T paramT);
 	
-	public int[] batchInsert (List<T> list);
+	public boolean batchInsert (List<T> list);
 
 	public boolean delete(T paramT);
 	

@@ -6,6 +6,7 @@ import com.caiweitao.data.cache.GameDataManager;
 import com.caiweitao.data.cache.ICache;
 import com.caiweitao.data.cache.local.NeedNotSaveLRUCache;
 import com.caiweitao.data.config.CacheConfig;
+import com.caiweitao.data.exception.CacheSelectException;
 
 /**
  * @author caiweitao
@@ -26,7 +27,12 @@ public abstract class NeedNotSaveGameCache<K,V> extends BaseGameCache<K, V>{
 		cache = new NeedNotSaveLRUCache<K, V>(maxElementsInMemory) {
 			@Override
 			public V loadout(K key) {
-				return without(key);
+				try {
+					return without(key);
+				} catch (CacheSelectException e) {
+					e.printStackTrace();
+					return null;
+				}
 			}
 		};
 		GameDataManager.register(name, cache);

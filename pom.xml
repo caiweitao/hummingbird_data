@@ -131,6 +131,21 @@
 		    	</snapshotRepository>
     		</distributionManagement>
 		</profile>
+		<profile>
+			<id>snapshot</id>
+			<distributionManagement>
+				<repository>
+					<id>Releases</id>
+					<name>Nexus Release Respository</name>
+					<url>http://10.21.210.130:8088/nexus/content/repositories/releases/</url>
+				</repository>
+				<snapshotRepository>
+					<id>Snapshots</id>
+					<name>Nexus Snapshots Snapshots</name>
+					<url>http://10.21.210.130:8088/nexus/content/repositories/snapshots/</url>
+				</snapshotRepository>
+			</distributionManagement>
+		</profile>
 	</profiles>
 	<properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

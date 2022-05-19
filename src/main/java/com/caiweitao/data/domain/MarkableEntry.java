@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * @author caiweitao
  * @Date 2021年4月27日
- * @Description 
+ * @Description 大表成员属性基类
  */
 public class MarkableEntry<P> {
 

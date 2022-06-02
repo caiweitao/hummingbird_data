@@ -19,7 +19,7 @@ import com.google.gson.Gson;
  * @Date 2021年4月27日
  * @Description 特殊本地LRU缓存（按字段批量持久化）V的成员变量相当于一个小表
  */
-public abstract class LRUCache<K, V> extends Cache<K, V> { 
+public abstract class LRUCache<K, V> extends Cache<K, V> {
 	protected LinkedHashMap<K, V> lruMap;//做LRU策略（非线程安全）
 	protected ConcurrentHashMap<K,V> totalMap;//缓存全集（线程安全）
 

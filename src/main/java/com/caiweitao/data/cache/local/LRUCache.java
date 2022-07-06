@@ -149,7 +149,7 @@ public abstract class LRUCache<K, V> extends Cache<K, V> {
 							}
 						}
 					}
-					updateMemberList.clear(); 
+					updateMemberList.clear();
 				}
 			}
 		} catch (Exception e ) {

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.caiweitao</groupId>
 	<artifactId>maple-data</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.4</version>
 	
 	<name>maple-data</name>
     <description>Data caching and persistence tools</description>
